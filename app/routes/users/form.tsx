@@ -1,17 +1,29 @@
 import type { ActionArgs } from '@remix-run/node'
-import { redirect } from '@remix-run/node'
-import type { InternalUser } from '~/modules/shared/types'
+import { makeDomainFunction } from 'domain-functions'
+import { z } from 'zod'
+import { formAction } from '~/form-action.server'
 import { UserForm } from '~/modules/users/components/outlets/UserForm'
 
-import { createUser } from '~/modules/users/userService'
+const schema = z.object({
+  name: z.string().min(1).trim(),
+  email: z.string().min(1).email().trim(),
+  city: z.string().min(1).trim(),
+  state: z.string().min(1).trim(),
+})
 
-export async function action({ request }: ActionArgs) {
-  const formData = await request.formData()
-  const data = Object.fromEntries(formData) as InternalUser
+const mutation = makeDomainFunction(schema)(async (values) =>
+  console.log(values),
+)
+export const action = async ({ request }: ActionArgs) =>
+  formAction({
+    request,
+    schema,
+    mutation,
+    successPath: '/users',
+  })
 
-  await createUser(data)
-
-  return redirect('/users')
+export default function () {
+  return <UserForm />
 }
 
 export function ErrorBoundary({ error }: { error: Error }) {
@@ -23,8 +35,4 @@ export function ErrorBoundary({ error }: { error: Error }) {
       <pre>{error.stack}</pre>
     </div>
   )
-}
-
-export default function () {
-  return <UserForm />
 }
