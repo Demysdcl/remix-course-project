@@ -42,6 +42,7 @@ export default function App() {
           }}
         />
         <Scripts />
+        <script src="https://cdn.tailwindcss.com"></script>
         <LiveReload />
       </body>
     </html>

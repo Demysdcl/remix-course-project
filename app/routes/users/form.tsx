@@ -1,9 +1,9 @@
 import type { ActionArgs } from '@remix-run/node'
 import { redirect } from '@remix-run/node'
-import type { InternalUser } from '~/Types'
-import { UserForm } from '~/modules/Users/components/outlets/UserForm'
+import type { InternalUser } from '~/modules/shared/types'
+import { UserForm } from '~/modules/users/components/outlets/UserForm'
 
-import { createUser } from '~/modules/Users/userService'
+import { createUser } from '~/modules/users/userService'
 
 export async function action({ request }: ActionArgs) {
   const formData = await request.formData()
