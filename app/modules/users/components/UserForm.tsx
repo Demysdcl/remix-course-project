@@ -40,7 +40,7 @@ export function UserForm({ schema }: UserFormProps) {
             </div>
           </div>
           <div className="mt-5 md:col-span-2 md:mt-0">
-            <Form schema={schema}>
+            <Form className="flex flex-col" schema={schema}>
               {({ Field, Errors, Button, register }) => (
                 <>
                   {fiels.map(({ name, label }) => (
@@ -59,7 +59,7 @@ export function UserForm({ schema }: UserFormProps) {
                   ))}
 
                   <Errors className="text-red-500 font-bold text-sm antialiased" />
-                  <Button className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                  <Button className="self-end mt-8 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                     Save
                   </Button>
                 </>

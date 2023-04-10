@@ -1,10 +1,8 @@
-import { faker } from '@faker-js/faker'
 import type { ActionArgs } from '@remix-run/node'
 import { makeDomainFunction } from 'domain-functions'
 import { z } from 'zod'
-import { db } from '~/db.server'
 import { formAction } from '~/form-action.server'
-import { UserForm } from '~/modules/users/components/outlets/UserForm'
+import { UserForm, createUser } from '~/modules/users'
 
 const schema = z.object({
   name: z.string().min(1, { message: 'Please provide your name' }).trim(),
@@ -18,7 +16,7 @@ const schema = z.object({
 })
 
 const mutation = makeDomainFunction(schema)(async (data) => {
-  await db.user.create({ data: { ...data, avatar: faker.image.avatar() } })
+  await createUser(data)
 })
 
 export const action = async ({ request }: ActionArgs) =>
