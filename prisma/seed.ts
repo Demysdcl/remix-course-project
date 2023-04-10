@@ -6,7 +6,9 @@ const prisma = new PrismaClient()
 async function seed() {
   await prisma.user.deleteMany()
 
-  Array.from(Array(10).keys()).forEach(async () => {
+  const ELEMENTS_QTY = 12
+
+  Array.from(Array(ELEMENTS_QTY).keys()).forEach(async () => {
     await prisma.user.create({
       data: {
         name: `${faker.name.firstName()} ${faker.name.middleName()} ${faker.name.lastName()}`,

@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker'
 import { PrismaClient } from '@prisma/client'
-import type { InternalUser } from '~/modules/shared/types'
+import type { InternalUser } from '~/modules/users/types'
 
 const db = new PrismaClient()
 

@@ -1,4 +1,4 @@
-import type { InternalUser } from '~/modules/shared/types'
+import type { InternalUser } from '~/modules/users/types'
 
 interface UsersTableProps {
   users: InternalUser[]
@@ -13,6 +13,12 @@ export function UsersTable({ users }: UsersTableProps) {
             <table className="min-w-full divide-y divide-gray-300">
               <thead className="bg-gray-50">
                 <tr>
+                  <th
+                    scope="col"
+                    className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
+                  >
+                    Num
+                  </th>
                   <th
                     scope="col"
                     className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
@@ -43,8 +49,11 @@ export function UsersTable({ users }: UsersTableProps) {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200 bg-white">
-                {users.map((user) => (
+                {users.map((user, index) => (
                   <tr key={user.id}>
+                    <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                      {index + 1}
+                    </td>
                     <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                       {user.name}
                     </td>

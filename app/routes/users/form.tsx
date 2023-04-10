@@ -1,7 +1,9 @@
+import { faker } from '@faker-js/faker'
+import type { User } from '@prisma/client'
 import type { ActionArgs } from '@remix-run/node'
-import { makeDomainFunction } from 'domain-functions'
+import { redirect } from 'react-router'
 import { z } from 'zod'
-import { formAction } from '~/form-action.server'
+import { db } from '~/db.server'
 import { UserForm } from '~/modules/users/components/outlets/UserForm'
 
 const schema = z.object({
@@ -11,16 +13,13 @@ const schema = z.object({
   state: z.string().min(1).trim(),
 })
 
-const mutation = makeDomainFunction(schema)(async (values) =>
-  console.log(values),
-)
-export const action = async ({ request }: ActionArgs) =>
-  formAction({
-    request,
-    schema,
-    mutation,
-    successPath: '/users',
-  })
+export const action = async ({ request }: ActionArgs) => {
+  const data = Object.fromEntries(await request.formData())
+  const user = data as unknown as User
+  await db.user.create({ data: { ...user, avatar: faker.image.avatar() } })
+
+  return redirect('/users')
+}
 
 export default function () {
   return <UserForm />
@@ -28,11 +27,10 @@ export default function () {
 
 export function ErrorBoundary({ error }: { error: Error }) {
   return (
-    <div>
-      <h1>Error</h1>
-      <p>{error.message}</p>
-      <p>The stack trace is:</p>
-      <pre>{error.stack}</pre>
+    <div className="bg-red-100 border border-red-500 p-12">
+      <span className="text-red-500 font-bold text-2xl">
+        Alguma coisa errada não está certa 🤔
+      </span>
     </div>
   )
 }
