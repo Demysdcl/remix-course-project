@@ -2,7 +2,7 @@ import { faker } from '@faker-js/faker'
 import bcrypt from 'bcryptjs'
 import { z } from 'zod'
 import { db } from '~/db'
-import type { InternalUser } from '~/modules/users/types'
+import type { InternalUser } from '../types'
 
 export const userSchema = z.object({
   name: z.string().min(1, { message: 'Please provide your name' }).trim(),

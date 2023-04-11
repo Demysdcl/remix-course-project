@@ -1,4 +1,4 @@
-import type { InternalUser } from '~/modules/users/types'
+import type { InternalUser } from '../../types'
 
 interface UsersTableProps {
   users: InternalUser[]

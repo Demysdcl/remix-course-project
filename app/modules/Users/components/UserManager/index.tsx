@@ -1,5 +1,6 @@
 import { Link, Outlet } from '@remix-run/react'
-import type { InternalUser } from '~/modules/users/types'
+
+import type { InternalUser } from '../../types'
 import { UsersTable } from './UsersTable'
 
 interface UserManagerProps {

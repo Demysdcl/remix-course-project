@@ -1,7 +1,7 @@
 import { json } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
-import { ErrorFeedback } from '~/modules/shared'
-import { UsersManager, getUsers } from '~/modules/users'
+import { ErrorFeedback } from '~/modules/Shared'
+import { UsersManager, getUsers } from '~/modules/Users'
 
 export async function loader() {
   return json({

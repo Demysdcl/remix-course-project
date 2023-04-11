@@ -1,15 +1,9 @@
 import type { ActionArgs } from '@remix-run/node'
 import { makeDomainFunction } from 'domain-functions'
 import { performMutation } from 'remix-forms'
-import { z } from 'zod'
-import { CustomForm } from '~/modules/shared'
-
-const LoginInputSchema = z.object({
-  email: z.string().email('Provide a valid email address').trim(),
-  password: z.string().min(1),
-})
-
-type LoginInput = z.infer<typeof LoginInputSchema>
+import type { LoginInput } from '~/modules/Auth'
+import { LoginInputSchema, login } from '~/modules/Auth'
+import { CustomForm } from '~/modules/Shared'
 
 const values: LoginInput = {
   email: 'Zola95@yahoo.com',
@@ -28,10 +22,23 @@ const fields = [
   },
 ]
 
-const mutation = makeDomainFunction(LoginInputSchema)(async (values) => values)
+const mutation = makeDomainFunction(LoginInputSchema)(async (values) => {
+  return login(values)
+})
 
-export const action = async ({ request }: ActionArgs) =>
-  performMutation({ request, mutation, schema: LoginInputSchema })
+export async function action({ request }: ActionArgs) {
+  const result = await performMutation({
+    request,
+    schema: LoginInputSchema,
+    mutation,
+  })
+
+  if (!result.success) {
+    return result
+  }
+
+  return result
+}
 
 export default () => (
   <div className="w-96 mx-auto mt-10 bg-[#f4f4f4] p-6 rounded-lg drop-shadow-lg border border-[rgba(0,0,0,0.05)]">

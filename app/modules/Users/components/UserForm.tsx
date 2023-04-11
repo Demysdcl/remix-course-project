@@ -1,4 +1,4 @@
-import { CustomForm } from '~/modules/shared'
+import { CustomForm } from '~/modules/Shared'
 import type { UserInput } from '../service'
 import { userSchema } from '../service'
 
