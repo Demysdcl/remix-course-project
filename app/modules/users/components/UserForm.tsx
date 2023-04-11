@@ -1,12 +1,14 @@
-import type { SomeZodObject } from 'zod'
-import { Form } from '~/form'
+import { Form } from '~/remix-forms'
+import type { UserInput } from '../userService'
+import { userSchema } from '../userService'
 
-interface UserFormProps {
-  schema: SomeZodObject
+type FieldInput = {
+  name: keyof UserInput
+  label: string
 }
 
-export function UserForm({ schema }: UserFormProps) {
-  const fiels = [
+export function UserForm() {
+  const fiels: FieldInput[] = [
     {
       name: 'name',
       label: 'Name',
@@ -40,7 +42,7 @@ export function UserForm({ schema }: UserFormProps) {
             </div>
           </div>
           <div className="mt-5 md:col-span-2 md:mt-0">
-            <Form className="flex flex-col" schema={schema}>
+            <Form className="flex flex-col" schema={userSchema}>
               {({ Field, Errors, Button, register }) => (
                 <>
                   {fiels.map(({ name, label }) => (

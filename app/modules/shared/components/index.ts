@@ -1,2 +1,1 @@
-export { RxButton } from './RxButton'
-export { RxInput } from './RxInput'
+export { ErrorFeedback } from './ErrorFeedback'
