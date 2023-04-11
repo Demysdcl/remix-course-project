@@ -11,10 +11,8 @@ const mutation = makeDomainFunction(userSchema)(async (data) => {
 export const action = async ({ request }: ActionArgs) =>
   formAction({ request, schema: userSchema, mutation, successPath: '/users' })
 
-export default function () {
-  return <UserForm />
-}
-
 export function ErrorBoundary({ error }: { error: Error }) {
   return <ErrorFeedback />
 }
+
+export default () => <UserForm />
