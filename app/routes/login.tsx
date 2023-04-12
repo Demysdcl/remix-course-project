@@ -1,9 +1,11 @@
 import type { ActionArgs } from '@remix-run/node'
+import { redirect } from '@remix-run/node'
 import { makeDomainFunction } from 'domain-functions'
 import { performMutation } from 'remix-forms'
 import type { LoginInput } from '~/modules/Auth'
 import { LoginInputSchema, login } from '~/modules/Auth'
 import { CustomForm } from '~/modules/Shared'
+import { commitSession, getSession } from '~/session.server'
 
 const values: LoginInput = {
   email: 'Zola95@yahoo.com',
@@ -37,7 +39,12 @@ export async function action({ request }: ActionArgs) {
     return result
   }
 
-  return result
+  const session = await getSession(request.headers.get('Cookie'))
+  session.set('user', result.data)
+
+  return redirect('/', {
+    headers: { 'Set-Cookie': await commitSession(session) },
+  })
 }
 
 export default () => (
