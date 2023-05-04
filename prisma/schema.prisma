@@ -19,3 +19,27 @@ model User {
   city     String?
   state    String?
 }
+
+model Product {
+  id       Int    @id @default(autoincrement())
+  name     String
+  color    String
+  href     String
+  imageSrc String
+  imageAlt String
+  price    Int
+}
+
+model Order {
+  id                    String   @id @default(uuid())
+  email                 String
+  address               String
+  city                  String
+  state                 String
+  postal                String
+  products              String
+  totals                String
+  stripePaymentIntentId String?
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @default(now())
+}

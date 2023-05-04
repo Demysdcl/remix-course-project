@@ -8,7 +8,7 @@ import { CustomForm } from '~/modules/Shared'
 import { commitSession, getSession } from '~/session.server'
 
 const values: LoginInput = {
-  email: 'Zola95@yahoo.com',
+  email: 'Kyler_Roob94@gmail.com',
   password: '123456',
 }
 
